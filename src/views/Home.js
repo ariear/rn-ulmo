@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { Image, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from "react-native"
+import { Image, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native"
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [room] = useState([
     {
       img: require('../assets/pic5.png'),
@@ -49,8 +49,7 @@ const Home = () => {
   ])
 
   return (
-    <ScrollView style={{ backgroundColor: '#ffff'}}>
-    <View style={{ marginHorizontal: 20 }}>
+    <ScrollView style={{ backgroundColor: '#ffff' , paddingHorizontal: 20}}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
       <Text style={styles.title}>ulmo</Text>
       
@@ -92,7 +91,8 @@ const Home = () => {
       <View>
         {
           room.map((e,index) => 
-        <View key={index} style={{ 
+        <TouchableWithoutFeedback key={index} onPress={() => e.title === 'living room' ? navigation.navigate('LivingRoom') : false}>
+        <View style={{ 
             borderRadius: 10,
             backgroundColor: '#F5F5F5',
             flexDirection: 'row',
@@ -102,17 +102,17 @@ const Home = () => {
          }}>
           <Text style={{ 
             fontFamily: 'Poppins-Medium',
-            fontSize: 31,
+            fontSize: 25,
             color: '#000',
             padding: 15
            }}>{e.title}</Text>
            <Image source={e.img} style={{ width: 120, height: 150 }} />
         </View>
+        </TouchableWithoutFeedback>
           )
         }
       </View>
 
-    </View>
     </ScrollView>
   )
 }
